@@ -2,26 +2,25 @@ import { Link } from "react-router-dom";
 import Form from "../components/form";
 import Input from "../components/input";
 const Login = () => {
+  const handleSubmit = data => console.log(data);
   return (
     <div className="flex flex-col">
       <div className="rounded-md border border-gray-500 p-10">
         <div className="font-bold text-lg mb-7">Vite app</div>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Input
             type={"text"}
             id={"email"}
-            //   register={register}
-            required={true}
             name={"email"}
             text={"Email"}
-            pattern={/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+            rules={{required:"Email is required", pattern:/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}}
           />
           <Input
             type={"text"}
             id={"password"}
-            required={true}
             name={"password"}
             text={"Password"}
+            rules={{required:"Password is required", minLength:6}}
           />
         </Form>
       </div>

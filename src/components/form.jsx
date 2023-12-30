@@ -1,33 +1,26 @@
-import {
-    Button,
-  } from "../components/button.jsx";
-  import Input from "../components/input.jsx";
-  import { useForm } from "react-hook-form";
+import {Button} from "../components/button.jsx";
+  import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 
   const Form = ({
-   children
+   children, onSubmit
   }) => {
-    const {
-      register,
-      handleSubmit,
-      watch,
-      formState: { errors },
-    } = useForm();
+
+    const methods = useForm();
    
   
-    const onSubmit = async (data) => {
+    // const onSubmit = async (data) => {
       
-            console.log("submit successfully")
+    //         console.log("submit successfully")
       
-    };
+    // };
   
    
     return (
-      <>
+      <FormProvider {...methods}>
         
         <form
-          onSubmit={handleSubmit(onSubmit)}
           method="POST"
+          onSubmit={methods.handleSubmit(onSubmit)}
           className="space-y-6 max-w-lg w-96 "
         >
          {children}
@@ -35,11 +28,10 @@ import {
               classNames={"text-white bg-indigo-600 hover:bg-indigo-600 mx-auto"}
               type="submit"
               text={"Submit"}
-              // onClick={()=>setIsLoading(true)}
             ></Button>
         </form>
        
-      </>
+      </FormProvider>
     );
   };
   

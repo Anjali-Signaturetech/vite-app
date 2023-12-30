@@ -1,19 +1,22 @@
-import { useState } from 'react'
-import Registration from './pages/registration'
-import Login from './pages/login'
+import { useState } from "react";
+import Registration from "./pages/registration";
+import Login from "./pages/login";
 // Correct import statements for Remix
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-
+import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Initialze the client
+  const queryClient = new QueryClient();
 
   return (
-    <div className=' flex flex-col items-center justify-center h-screen'>
-     
-     <RouterProvider router={approuter} />
+    <div className=" flex flex-col items-center justify-center h-screen">
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={approuter} />
+      </QueryClientProvider>
+      {/* <Registration /> */}
     </div>
-  )
+  );
 }
 const approuter = createBrowserRouter([
   {
@@ -26,9 +29,6 @@ const approuter = createBrowserRouter([
     element: <Registration />,
     // errorElement: <Error />,
   },
-
- 
 ]);
 
-
-export default App
+export default App;
