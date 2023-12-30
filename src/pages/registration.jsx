@@ -4,13 +4,20 @@ import Input from "../components/input";
 import { useState } from "react";
 import { useMutation } from 'react-query';
 import { fetchPostmanCollection } from './api';
+import { Registration_Url } from "./urls";
 const Registration = () => {
-   const [data1,setdata1]=useState(null);
+   
    const mutation = useMutation(fetchPostmanCollection);
 
   const handleRegistration = async (formData) => {
-      
-    mutation.mutate(formData);
+    console.log(formData, "abs")
+    try {
+      const result = await fetchPostmanCollection(formData, Registration_Url);
+      console.log('Result:', result);
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+    
   };
   return (
     <div className="flex flex-col">
@@ -40,8 +47,8 @@ const Registration = () => {
           />
            <Input
             type={"text"}
-            id={"confirmpassword"}
-            name={"confirmpassword"}
+            id={"confirm_password"}
+            name={"confirm_password"}
             text={"Confirm Password"}
             rules={{required:"Confirm Password is required", minLength:6,
             // validate: (value) => value === document.getElementById("password").value || "Passwords do not match"

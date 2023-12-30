@@ -19,7 +19,7 @@ import {Button} from "../components/button.jsx";
       <FormProvider {...methods}>
         
         <form
-          method="POST"
+          // method="POST"
           onSubmit={methods.handleSubmit(onSubmit)}
           className="space-y-6 max-w-lg w-96 "
         >
