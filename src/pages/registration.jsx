@@ -4,6 +4,8 @@ import Input from "../components/input";
 import { useState } from "react";
 import { fetchPostmanCollection } from "../services/api";
 import { Button } from "../components/button";
+import TheBody from "../components/theBody";
+import Nav from "../Nav";
 const Registration = () => {
   const [status, setStatus] = useState(null);
 
@@ -19,69 +21,98 @@ const Registration = () => {
     }
   };
   return (
-    <div className="flex flex-col">
-      <div className="rounded-md border border-gray-500 p-10">
-        <div className="font-bold text-lg mb-7">Vite app</div>
-        <Form onSubmit={handleRegistration}>
-          <Input
-            type={"text"}
-            id={"name"}
-            name={"name"}
-            text={"Username"}
-            rules={{ required: "User is required", pattern: /^[A-Za-z\s]+$/i }}
-          />
-          <Input
-            type={"text"}
-            id={"email"}
-            name={"email"}
-            text={"Email"}
-            rules={{
-              required: "Email is required",
-              pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            }}
-          />
-          <Input
-            type={"password"}
-            id={"password"}
-            name={"password"}
-            text={"Password"}
-            rules={{ required: "Password is required", minLength: 6 }}
-          />
-          <Input
-            type={"text"}
-            id={"confirm_password"}
-            name={"confirm_password"}
-            text={"Confirm Password"}
-            rules={{
-              required: "Confirm Password is required",
-              minLength: 6,
-              // validate: (value) => value === document.getElementById("password").value || "Passwords do not match"
-            }}
-          />
+    <div>
+       <Nav>
+        <Link to="/">
           <Button
-            classNames={"text-white bg-indigo-600 hover:bg-indigo-600 mx-auto"}
+            classNames={
+              "text-white bg-blue-550 hover:bg-white-550 w-[83px] h-[40px] mt-[14px]"
+            }
             type="submit"
-            text={"Submit"}
+            text={"Login"}
           ></Button>
-        </Form>
-        {/* {registrationError && <p style={{ color: 'red' }}>{registrationError}</p>} */}
-      </div>
-      {status?.message ===
-      "Verification OTP send to your email, Please verify your account" ? (
-        <div className="flex ">
-          <div className="text-gray-500 mr-2">{status.message}</div>
-          <Link to="/verify_otp" className="text-blue-600">
-            Click Here
-          </Link>
+        </Link>
+      </Nav>
+      <TheBody>
+        <div className="flex flex-col">
+          <div className="text-[20px] font-bold">Welcome!</div>
+          <div className="text-[14px] mb-3">
+            Start managing your finance faster and better
+          </div>
+
+          <Form onSubmit={handleRegistration}>
+            <Input
+              type={"text"}
+              id={"name"}
+              name={"name"}
+              placeholder={"Name"}
+              rules={{
+                required: "User is required",
+                pattern: /^[A-Za-z\s]+$/i,
+              }}
+            />
+            <Input
+              type={"text"}
+              id={"email"}
+              name={"email"}
+              placeholder={"Email"}
+              rules={{
+                required: "Email is required",
+                pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              }}
+            />
+            <Input
+              type={"password"}
+              id={"password"}
+              name={"password"}
+              placeholder={"Password"}
+              rules={{ required: "Password is required", minLength: 6 }}
+            />
+            <Input
+              type={"text"}
+              id={"confirm_password"}
+              name={"confirm_password"}
+              placeholder={"Confirm Password"}
+              rules={{
+                required: "Confirm Password is required",
+                minLength: 6,
+                // validate: (value) => value === document.getElementById("password").value || "Passwords do not match"
+              }}
+            />
+            
+              <Button
+                classNames={"text-white bg-blue-550 hover:bg-white-550 mt-5"}
+                type="submit"
+                text={"SignUp"}
+              ></Button>
+            
+            <Link to="/verify_otp">
+            </Link>
+          </Form>
+
+          <div className="mx-auto mt-24 w-[400px] border-t-2" />
+          {status.message==="Verification OTP send to your email, Please verify your account" ?(
+              <div className="flex mt-2 mx-auto ">
+              <div className="text-gray-500 mr-2">
+                Verify OTP
+              </div>
+              <Link to="/verify_otp" className="text-blue-600">
+                Click here
+              </Link>
+            </div>
+          ):(
+            <div className="flex mt-2 mx-auto ">
+            <div className="text-gray-500 mr-2">
+              Already have an account yet ?
+            </div>
+            <Link to="/" className="text-blue-600">
+              Login
+            </Link>
+          </div> 
+          )}
+         
         </div>
-      ) : (
-        <div className="flex mt-2">
-          <div className="text-gray-500 mr-2">Already have an account ? </div>
-          <Link to="/" className="text-blue-600">
-            Login
-          </Link>
-        </div>
-      )}
+      </TheBody>
     </div>
   );
 };

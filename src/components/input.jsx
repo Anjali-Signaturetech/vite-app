@@ -1,6 +1,6 @@
 import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 
-const Input = ({type, disabled, text, id, name, defaultValue, rules}) => {
+const Input = ({type, disabled, text, id, name, defaultValue,placeholder, rules}) => {
     const { register, formState: { errors } } = useFormContext();
     const validateConfirmPassword = () => {
         if(!document.getElementById('confirm_password'))return true;
@@ -9,9 +9,9 @@ const Input = ({type, disabled, text, id, name, defaultValue, rules}) => {
     
     return (<>
         <div className="space-y-1">
-            <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+            {/* <label htmlFor={id} className="block text-sm font-medium text-gray-700">
                 {text}
-            </label>
+            </label> */}
             <input id={id}
                    name={name}
                    disabled={disabled}
@@ -19,6 +19,7 @@ const Input = ({type, disabled, text, id, name, defaultValue, rules}) => {
                    type={type}
                    autoComplete={type}
                    defaultValue={defaultValue}
+                placeholder={placeholder}
                    className="block w-full appearance-none rounded-md border bg-gray-white border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             />
             {/* {console.log(errors)} */}
