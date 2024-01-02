@@ -26,6 +26,7 @@ const Input = ({type, disabled, text, id, name, defaultValue, rules}) => {
              {name==="email" && errors && errors.email?.type==="required" && <p style={{ color: 'red' }}>{errors.email.message}</p>}
              {name==="password" && errors && errors.password?.type==="required" && <p style={{ color: 'red' }}>{errors.password.message}</p>}
              {name==="confirm_password" && errors && errors.confirm_password?.type==="required" && <p style={{ color: 'red' }}>{errors.confirm_password.message}</p>}
+             {name==="otp" && errors && errors.otp?.type==="required" && <p style={{ color: 'red' }}>{errors.otp.message}</p>}
 
              {name==="name" && errors?.name?.type==="pattern" && <p style={{ color: 'red' }}>Please enter correct pattern</p>}
              {name==="email" && errors?.email?.type==="pattern" && <p style={{ color: 'red' }}>Please enter correct pattern</p>}

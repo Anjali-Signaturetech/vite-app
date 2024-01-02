@@ -7,14 +7,6 @@ import {Button} from "../components/button.jsx";
 
     const methods = useForm();
    
-  
-    // const onSubmit = async (data) => {
-      
-    //         console.log("submit successfully")
-      
-    // };
-  
-   
     return (
       <FormProvider {...methods}>
         
@@ -24,11 +16,7 @@ import {Button} from "../components/button.jsx";
           className="space-y-6 max-w-lg w-96 "
         >
          {children}
-         <Button
-              classNames={"text-white bg-indigo-600 hover:bg-indigo-600 mx-auto"}
-              type="submit"
-              text={"Submit"}
-            ></Button>
+        
         </form>
        
       </FormProvider>

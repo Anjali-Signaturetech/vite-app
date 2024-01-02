@@ -2,22 +2,21 @@ import { Link } from "react-router-dom";
 import Form from "../components/form";
 import Input from "../components/input";
 import { useState } from "react";
-import { useMutation } from 'react-query';
-import { fetchPostmanCollection } from './api';
-import { Registration_Url } from "./urls";
+import { fetchPostmanCollection } from "../services/api";
+import { Button } from "../components/button";
 const Registration = () => {
-   
-   const mutation = useMutation(fetchPostmanCollection);
+  const [status, setStatus] = useState(null);
 
   const handleRegistration = async (formData) => {
-    console.log(formData, "abs")
     try {
-      const result = await fetchPostmanCollection(formData, Registration_Url);
-      console.log('Result:', result);
+      const URL = `${import.meta.env.VITE_API_URL}auth/register`;
+      const result = await fetchPostmanCollection(formData, URL);
+      setStatus(result);
+      // localStorage.setItem("userData", JSON.stringify(result));
+      console.log("Result:", result);
     } catch (error) {
-      console.error('Error:', error.message);
+      console.error("Error:", error.message);
     }
-    
   };
   return (
     <div className="flex flex-col">
@@ -29,40 +28,60 @@ const Registration = () => {
             id={"name"}
             name={"name"}
             text={"Username"}
-            rules={{required:"User is required", pattern:/^[A-Za-z\s]+$/i}}
+            rules={{ required: "User is required", pattern: /^[A-Za-z\s]+$/i }}
           />
           <Input
             type={"text"}
             id={"email"}
             name={"email"}
             text={"Email"}
-            rules={{required:"Email is required", pattern:/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}}
+            rules={{
+              required: "Email is required",
+              pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            }}
           />
           <Input
             type={"password"}
             id={"password"}
             name={"password"}
             text={"Password"}
-            rules={{required:"Password is required", minLength:6}}
+            rules={{ required: "Password is required", minLength: 6 }}
           />
-           <Input
+          <Input
             type={"text"}
             id={"confirm_password"}
             name={"confirm_password"}
             text={"Confirm Password"}
-            rules={{required:"Confirm Password is required", minLength:6,
-            // validate: (value) => value === document.getElementById("password").value || "Passwords do not match"
-          }}
+            rules={{
+              required: "Confirm Password is required",
+              minLength: 6,
+              // validate: (value) => value === document.getElementById("password").value || "Passwords do not match"
+            }}
           />
+          <Button
+            classNames={"text-white bg-indigo-600 hover:bg-indigo-600 mx-auto"}
+            type="submit"
+            text={"Submit"}
+          ></Button>
         </Form>
         {/* {registrationError && <p style={{ color: 'red' }}>{registrationError}</p>} */}
       </div>
-      <div className="flex mt-2">
-        <div className="text-gray-500 mr-2">Already have an account ? </div>
-        <Link to="/" className="text-blue-600">
-          Login
-        </Link>
-      </div>
+      {status?.message ===
+      "Verification OTP send to your email, Please verify your account" ? (
+        <div className="flex ">
+          <div className="text-gray-500 mr-2">{status.message}</div>
+          <Link to="/verify_otp" className="text-blue-600">
+            Click Here
+          </Link>
+        </div>
+      ) : (
+        <div className="flex mt-2">
+          <div className="text-gray-500 mr-2">Already have an account ? </div>
+          <Link to="/" className="text-blue-600">
+            Login
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

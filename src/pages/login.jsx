@@ -1,23 +1,19 @@
 import { Link } from "react-router-dom";
 import Form from "../components/form";
 import Input from "../components/input";
-import { useState } from "react";
-import { useMutation } from 'react-query';
-import { fetchPostmanCollection } from './api';
-import { Login_url } from "./urls";
+import { fetchPostmanCollection } from '../services/api';
+import { Button } from "../components/button";
 const Registration = () => {
-   
-   const mutation = useMutation(fetchPostmanCollection);
 
   const handleRegistration = async (formData) => {
-    console.log(formData, "abs")
+    const URL = `${import.meta.env.VITE_API_URL}auth/login`;
     try {
-      const result = await fetchPostmanCollection(formData, Login_url);
+      const result = await fetchPostmanCollection(formData, URL);
+      localStorage.setItem('userData',JSON.stringify(result))
       console.log('Result:', result);
     } catch (error) {
       console.error('Error:', error.message);
     }
-    
   };
   return (
     <div className="flex flex-col">
@@ -38,8 +34,12 @@ const Registration = () => {
             text={"Password"}
             rules={{required:"Password is required", minLength:6}}
           />
+           <Button
+              classNames={"text-white bg-indigo-600 hover:bg-indigo-600 mx-auto"}
+              type="submit"
+              text={"Submit"}
+            ></Button>
         </Form>
-        {/* {registrationError && <p style={{ color: 'red' }}>{registrationError}</p>} */}
       </div>
       <div className="flex mt-2">
         <div className="text-gray-500 mr-2">Don't have an account ? </div>

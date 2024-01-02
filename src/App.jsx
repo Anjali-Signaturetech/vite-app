@@ -4,6 +4,7 @@ import Login from "./pages/login";
 // Correct import statements for Remix
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+import VerifyOtp from "./pages/verifyOtp";
 
 function App() {
   // Initialze the client
@@ -29,6 +30,10 @@ const approuter = createBrowserRouter([
     element: <Registration />,
     // errorElement: <Error />,
   },
+  {
+    path:"/verify_otp",
+    element:<VerifyOtp />
+  }
 ]);
 
 export default App;
