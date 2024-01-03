@@ -5,7 +5,7 @@ import { Button, LoadingButton } from "../components/button";
 import { Link } from "react-router-dom";
 import { fetchPostmanCollection } from "../services/api";
 import TheBody from "../components/theBody";
-import Nav from "../Nav";
+import Nav from "../components/Nav";
 const VerifyOtp = () => {
   const [isloading, setIsLoading] = useState(false);
   const handleOtp = async (formData) => {
@@ -36,7 +36,6 @@ const VerifyOtp = () => {
             classNames={
               "text-white bg-blue-550 hover:bg-white-550 w-[183px] h-[40px] mt-[14px]"
             }
-            // type="submit"
             text={"Login"}
           ></Button>
         </Link>
@@ -68,7 +67,6 @@ const VerifyOtp = () => {
             {isloading ? (
               <LoadingButton
                 classNames={"text-white bg-blue-550 hover:bg-white-550"}
-                // type="submit"
                 text={"Verify"}
               ></LoadingButton>
             ) : (

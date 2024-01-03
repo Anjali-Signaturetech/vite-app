@@ -5,14 +5,14 @@ import Input from "../components/input";
 import { fetchPostmanCollection } from "../services/api";
 import { Button, LoadingButton } from "../components/button";
 import TheBody from "../components/theBody";
-import Nav from "../Nav";
-const Registration = () => {
+import Nav from "../components/Nav";
+const Login = () => {
   const [isloading, setIsLoading] = useState(false);
   const handleRegistration = async (formData) => {
     const URL = `${import.meta.env.VITE_API_URL}auth/login`;
     try {
       const result = await fetchPostmanCollection(formData, URL, setIsLoading);
-      localStorage.setItem("userData", JSON.stringify(result));
+      // localStorage.setItem("userData", JSON.stringify(result));
       console.log("Result:", result);
     } catch (error) {
       console.error("Error:", error.message);
@@ -26,7 +26,6 @@ const Registration = () => {
             classNames={
               "text-white bg-blue-550 hover:bg-white-550 w-[183px] h-[40px] mt-[14px]"
             }
-            // type="submit"
             text={"Create an account"}
           ></Button>
         </Link>
@@ -58,7 +57,6 @@ const Registration = () => {
             {isloading ? (
               <LoadingButton
                 classNames={"text-white bg-blue-550 hover:bg-white-550"}
-                // type="submit"
                 text={"Loading"}
               ></LoadingButton>
             ) : (
@@ -85,4 +83,4 @@ const Registration = () => {
     </div>
   );
 };
-export default Registration;
+export default Login;
